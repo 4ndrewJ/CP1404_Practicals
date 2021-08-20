@@ -9,6 +9,10 @@ def main():
     score_description = get_score_description(score)
     print(score_description)
 
+    score = randrange(0, 101)
+    score_description = get_score_description(score)
+    print(score_description)
+
 
 def get_score_description(score):
     if score < 0 or score > 100:
