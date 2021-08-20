@@ -1,6 +1,5 @@
 """
-CP1404/CP5632 - Practical
-Broken program to determine score status
+Broken Score program from prac 3 CP1404
 """
 
 score = float(input("Enter score: "))
