@@ -6,7 +6,7 @@ Get and store name and email
 
 def main():
     """
-    Gets user input of names and emails
+    Get user input of names and emails
     Stores and displays the names and emails
     """
     name_to_email = {}
@@ -23,7 +23,7 @@ def main():
 
 def display_names_and_emails(name_to_email):
     """
-    Displays the names and emails in the dictionary name_to_email
+    Display the names and emails in the dictionary name_to_email
     """
     for name_and_email in name_to_email.items():
         print('{} ({})'.format(*name_and_email))
@@ -31,7 +31,7 @@ def display_names_and_emails(name_to_email):
 
 def find_name_from_email(email):
     """
-    Finds the section of email commonly used for names
+    Find the section of email commonly used for names
     Returns full name (each name seperated by '.' in email) in title case
     """
     return ' '.join(name.title() for name in email.split('@')[0].split('.'))
