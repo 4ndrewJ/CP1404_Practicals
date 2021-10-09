@@ -25,23 +25,48 @@ def main():
 
 def get_fixed_filename(filename):
     """Return a 'fixed' version of filename."""
-    new_name = filename.replace(" ", "_").replace(".TXT", ".txt")
-    return new_name
+    # Files may have '.' midway through filename
+    filename_split = filename.split('.')
+    f_name = '.'.join(filename_split[:-1])
+    ext = '.' + filename_split[-1].lower()
+    sections = []
+    current_section = f_name[0]
+    for char in f_name[1:]:
+        if char.isspace() or char == '_':
+            sections.append(current_section)
+            current_section = ''
+            continue
+        elif char == ')':
+            current_section += char
+            sections.append(current_section)
+            current_section = ''
+            continue
+        elif char.isupper() or char == '(':
+            if len(current_section) == 0:
+                current_section = char
+                continue
+            if current_section[-1] != '(':
+                sections.append(current_section)
+                current_section = char
+                continue
+        current_section += char
+    if len(current_section) != 0:
+        sections.append(current_section)
+
+    return '_'.join(section.title() for section in sections) + ext
 
 
 def demo_walk():
     """Process all subdirectories using os.walk()."""
     os.chdir('Lyrics')
     for directory_name, subdirectories, filenames in os.walk('.'):
-        print("Directory:", directory_name)
-        print("\tcontains subdirectories:", subdirectories)
-        print("\tand files:", filenames)
-        print("(Current working directory is: {})".format(os.getcwd()))
-
         for filename in filenames:
+            print('-')
+            print(filename)
+            print(get_fixed_filename(filename))
             full_path = os.path.join(directory_name, filename)
             new_path = os.path.join(directory_name, get_fixed_filename(filename))
-            os.rename(full_path, new_path)
+            # os.rename(full_path, new_path)
 
 
 demo_walk()
